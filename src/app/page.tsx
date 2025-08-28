@@ -1,102 +1,419 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import {
+  Play,
+  Pause,
+  Instagram,
+  Twitter,
+  Youtube,
+  SproutIcon as Spotify,
+  Music,
+  Headphones,
+  Zap,
+  Volume2,
+  ArrowUp,
+} from "lucide-react";
 import Image from "next/image";
 
-export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+export default function ArtistPage() {
+  const [currentTrack, setCurrentTrack] = useState<number | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  const genresRef = useRef<HTMLDivElement | null>(null);
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!genresRef.current) return;
+      const rect = genresRef.current.getBoundingClientRect();
+      setShowScrollTop(rect.top < 0); // Muestra el botón si la sección ya no está visible arriba
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const genres = [
+    { name: "Rock", icon: Music, color: "bg-red-500" },
+    { name: "Cyberpunk", icon: Zap, color: "bg-purple-500" },
+    { name: "Electrónica", icon: Volume2, color: "bg-blue-500" },
+    { name: "Orquestal", icon: Headphones, color: "bg-green-500" },
+  ];
+
+  const singles = [
+    {
+      title: "Neon Dreams",
+      plays: "2.1M",
+      cover: "/cyberpunk-neon-album-cover.png",
+    },
+    {
+      title: "Digital Symphony",
+      plays: "1.8M",
+      cover: "/electronic-orchestra-album-cover.png",
+    },
+    {
+      title: "Chrome Hearts",
+      plays: "1.5M",
+      cover: "/rock-cyberpunk-album-cover.png",
+    },
+    {
+      title: "Binary Soul",
+      plays: "1.2M",
+      cover: "/electronic-music-album-cover.png",
+    },
+  ];
+
+  const socialLinks = [
+    { name: "Spotify", icon: Spotify, url: "#", color: "hover:text-green-400" },
+    {
+      name: "Instagram",
+      icon: Instagram,
+      url: "#",
+      color: "hover:text-pink-400",
+    },
+    { name: "Twitter", icon: Twitter, url: "#", color: "hover:text-blue-400" },
+    { name: "YouTube", icon: Youtube, url: "#", color: "hover:text-red-400" },
+  ];
+
+  return (
+    <div className="min-h-screen bg-background text-foreground overflow-hidden">
+      {/* Hero Section */}
+      <section className="relative h-screen flex items-center justify-center bg-gradient-to-br from-background via-background to-purple-900/20">
+        <div className="absolute inset-0 bg-[url('/portada.png')] bg-cover bg-center opacity-40"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+
+        <div
+          className={`relative z-10 text-center space-y-6 px-4 transition-all duration-1000 ${
+            isVisible ? "animate-slide-up" : "opacity-30"
+          }`}
+        >
+          <h1 className="text-6xl md:text-8xl font-bold bg-gradient-to-r from-white via-purple-200 to-purple-400 bg-clip-text text-transparent animate-pulse-purple">
+            Alfred_UArc7
+          </h1>
+          <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+            Fusionando Rock, Cyberpunk, Electrónica y Orquestal en una
+            experiencia sonora única
+          </p>
+          <div className="flex flex-wrap justify-center gap-4 mt-8">
+            {socialLinks.map((social) => (
+              <Button
+                key={social.name}
+                variant="outline"
+                size="lg"
+                className={`border-primary/50 ${social.color} transition-all duration-300 hover:scale-110 hover:animate-glow`}
+                asChild
+              >
+                <a href={social.url} target="_blank" rel="noopener noreferrer">
+                  <social.icon className="w-5 h-5 mr-2" />
+                  {social.name}
+                </a>
+              </Button>
+            ))}
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+      </section>
+
+      {/* Genres Section */}
+      <section className="py-20 px-4" ref={genresRef}>
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-4xl font-bold text-center mb-12 text-balance">
+            Géneros Musicales
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {genres.map((genre, index) => (
+              <Card
+                key={genre.name}
+                className={`group cursor-pointer transition-all duration-300 hover:scale-105 hover:animate-glow border-primary/20 bg-card/50 backdrop-blur-sm ${
+                  isVisible ? "animate-slide-up" : "opacity-30"
+                }`}
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <CardContent className="p-6 text-center space-y-4">
+                  <div
+                    className={`w-16 h-16 mx-auto rounded-full ${genre.color} flex items-center justify-center group-hover:animate-pulse-purple`}
+                  >
+                    <genre.icon className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="text-xl font-semibold">{genre.name}</h3>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Singles Section */}
+      <section className="py-20 px-4 bg-gradient-to-b from-transparent to-purple-900/10">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-4xl font-bold text-center mb-12 text-balance">
+            Sencillos Más Populares
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {singles.map((single, index) => (
+              <Card
+                key={single.title}
+                className={`group cursor-pointer transition-all duration-300 hover:scale-105 border-primary/20 bg-card/50 backdrop-blur-sm ${
+                  isVisible ? "animate-slide-up" : "opacity-30"
+                }`}
+                style={{ animationDelay: `${index * 0.1 + 0.5}s` }}
+              >
+                <CardContent className="p-0">
+                  <div className="relative overflow-hidden rounded-t-lg">
+                    <Image
+                      src={single.cover || "/placeholder.svg"}
+                      alt={single.title}
+                      className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
+                      width={400}
+                      height={192}
+                    />
+                    <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                      <Button
+                        size="lg"
+                        className="rounded-full animate-glow"
+                        onClick={() =>
+                          setCurrentTrack(currentTrack === index ? null : index)
+                        }
+                      >
+                        {currentTrack === index ? (
+                          <Pause className="w-6 h-6" />
+                        ) : (
+                          <Play className="w-6 h-6" />
+                        )}
+                      </Button>
+                    </div>
+                  </div>
+                  <div className="p-4 space-y-2">
+                    <h3 className="font-semibold text-lg">{single.title}</h3>
+                    <Badge
+                      variant="secondary"
+                      className="bg-primary/20 text-primary"
+                    >
+                      {single.plays} reproducciones
+                    </Badge>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* About Section */}
+      <section className="py-20 px-4">
+        <div className="max-w-4xl mx-auto text-center space-y-8">
+          <h2 className="text-4xl font-bold mb-8 text-balance">Mi música</h2>
+          <div className="space-y-6 text-lg leading-relaxed text-muted-foreground">
+            <p>
+              Fusión de géneros, combino la potencia del rock con la estética
+              futurista del cyberpunk, la innovación de la música electrónica y
+              la grandeza de las composiciones orquestales.
+            </p>
+            <p>
+              Mi música trasciende las barreras tradicionales, creando paisajes
+              sonoros que transportan al oyente a mundos donde la tecnología y
+              la emoción humana se encuentran en perfecta armonía.
+            </p>
+            <p>
+              Cada composición es un viaje a través de diferentes dimensiones
+              musicales, donde los sintetizadores dialogan con violines, las
+              guitarras eléctricas se entrelazan con beats electrónicos, y cada
+              nota cuenta una historia del futuro.
+            </p>
+          </div>
+        </div>
+        <div className="max-w-4xl mx-auto text-justify space-y-8 pt-25">
+          <h2 className="text-4xl font-bold mb-8 text-balance">
+            Sobre la creación de mi música
+          </h2>
+          <div className="space-y-6 text-lg leading-relaxed text-muted-foreground">
+            <p>
+              Mi música es generada con herramientas de inteligencia artificial
+              (IA), específicamente utilizando Suno AI, una plataforma que me
+              permite transformar ideas y emociones en composiciones únicas.
+              Quiero aclarar algunos puntos importantes sobre este proceso:
+            </p>
+            <h3 className="text-lg font-semibold">
+              1. Mis intenciones: Compartir, no reemplazar
+            </h3>
+            <p>
+              No busco reemplazar a artistas musicales tradicionales ni
+              menospreciar el valor del arte creado por humanos. Mi objetivo es
+              compartir experiencias sonoras que nacen de mis propias ideas,
+              emociones y perspectivas personales, utilizando la IA como una
+              herramienta de expresión creativa. Esta música es, ante todo, un
+              reflejo de mi visión artística y un experimento para explorar
+              nuevos horizontes en la creación musical.
+            </p>
+            <h3 className="text-lg font-semibold">
+              2. Originalidad y derechos de autor
+            </h3>
+            <div className="pl-8">
+              <ul>
+                <li className="flex items-start gap-2">
+                  <span className="inline-block mt-1 w-3 h-3 rounded-full bg-gradient-to-tr from-purple-400 via-pink-400 to-blue-400 shadow-md"></span>
+                  <span>
+                    Todas las letras y melodías generadas con Suno AI son
+                    creaciones originales basadas en mis propias ideas y prompts
+                    (instrucciones).
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="inline-block mt-1 w-3 h-3 rounded-full bg-gradient-to-tr from-purple-400 via-pink-400 to-blue-400 shadow-md"></span>
+                  <span>
+                    Soy miembro pago de Suno AI, lo que me otorga derechos
+                    comerciales sobre la música generada, de acuerdo con los
+                    términos y condiciones de la plataforma.
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="inline-block mt-1 w-3 h-3 rounded-full bg-gradient-to-tr from-purple-400 via-pink-400 to-blue-400 shadow-md"></span>
+                  <span>
+                    No utilizo obras, melodías o letras de otros artistas como
+                    referencia para generar mis canciones. Cada pieza es única y
+                    nace de mis propias ideas.
+                  </span>
+                </li>
+              </ul>
+            </div>
+            <h3 className="text-lg font-semibold">
+              3. Limitaciones éticas y legales
+            </h3>
+            Soy consciente de que la música generada por IA no equivale al
+            trabajo de un artista humano en términos creativos, legales o
+            sociales. Por ello:
+            <div className="pl-8 pt-4">
+              <ul>
+                <li className="flex items-start gap-2">
+                  <span className="inline-block mt-1 w-3 h-3 rounded-full bg-gradient-to-tr from-purple-400 via-pink-400 to-blue-400 shadow-md"></span>
+                  <span>
+                    No me atribuyo habilidades musicales tradicionales (como
+                    composición instrumental o vocal).
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="inline-block mt-1 w-3 h-3 rounded-full bg-gradient-to-tr from-purple-400 via-pink-400 to-blue-400 shadow-md"></span>
+                  <span>
+                    No busco los mismos beneficios que un artista musical
+                    convencional (premios, reconocimientos académicos, etc.).
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="inline-block mt-1 w-3 h-3 rounded-full bg-gradient-to-tr from-purple-400 via-pink-400 to-blue-400 shadow-md"></span>
+                  <span>
+                    No me identifico como &quot;músico&quot; o
+                    &quot;compositor&quot; en el sentido tradicional, sino como
+                    un creador que utiliza IA para dar vida a sus ideas.
+                  </span>
+                </li>
+              </ul>
+            </div>
+            <h3 className="text-lg font-semibold">
+              4. Uso de mi música por terceros
+            </h3>
+            Mi música está disponible en múltiples plataformas gracias a
+            DistroKid, pero yo mismo gestiono mi contenido en YouTube. Por ello:
+            <div className="pl-8 pt-4">
+              <ul>
+                <li className="flex items-start gap-2">
+                  <span className="inline-block mt-1 w-3 h-3 rounded-full bg-gradient-to-tr from-purple-400 via-pink-400 to-blue-400 shadow-md"></span>
+                  <span>
+                    Puedes usar mis canciones en proyectos no comerciales
+                    (videos, podcasts, covers) siempre que me des crédito como
+                    creador y enlaces a mi canal/web.
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="inline-block mt-1 w-3 h-3 rounded-full bg-gradient-to-tr from-purple-400 via-pink-400 to-blue-400 shadow-md"></span>
+                  <span>
+                    No permito el uso de mi música en proyectos comerciales
+                    (publicidad, monetización, venta) sin mi autorización
+                    explícita.
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="inline-block mt-1 w-3 h-3 rounded-full bg-gradient-to-tr from-purple-400 via-pink-400 to-blue-400 shadow-md"></span>
+                  <span>
+                    YouTube: Puedes usar mis canciones como fondo en tus videos
+                    siempre que:
+                    <ul>
+                      <li>
+                        Me des crédito en la descripción (con enlace a mi canal
+                        o redes sociales).
+                      </li>
+                      <li>
+                        No monetices el video (no active publicidad ni ganes
+                        dinero con él) sin mi autorización previa por escrito.
+                      </li>
+                    </ul>
+                    Para uso comercial (monetización, publicidad, proyectos
+                    pagados, etc.), escríbeme a{" "}
+                    <span className="font-semibold">
+                      alfred.uri.music@gmail.com
+                    </span>{" "}
+                    para negociar una licencia.
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="inline-block mt-1 w-3 h-3 rounded-full bg-gradient-to-tr from-purple-400 via-pink-400 to-blue-400 shadow-md"></span>
+                  <span>
+                    Para solicitudes comerciales o dudas, escríbeme a
+                    <span className="font-semibold">
+                      {" "}
+                      alfred.uri.music@gmail.com
+                    </span>
+                    .
+                  </span>
+                </li>
+              </ul>
+            </div>
+            <h3 className="text-lg font-semibold">
+              5. Transparencia con mi audiencia
+            </h3>
+            Siempre seré claro sobre el origen de mi música: creada por IA,
+            impulsada por ideas humanas. Agradezco tu interés y respeto por este
+            proyecto, que busca democratizar la creación musical sin perder de
+            vista el valor irremplazable del arte humano.
+          </div>
+        </div>
+      </section>
+
+      {showScrollTop && (
+  <button
+    onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+    className="fixed bottom-8 right-8 z-50 from-purple-900/10 via-pink-500 to-blue-500 text-white rounded-full shadow-lg w-14 h-14 flex items-center justify-center border-4 border-white/20 hover:scale-110 transition-transform duration-300 animate-glow focus:outline-none"
+    aria-label="Volver arriba"
+  >
+    <ArrowUp className="w-7 h-7" />
+  </button>
+)}
+
+      {/* Footer */}
+      <footer className="py-12 px-4 border-t border-border/50 bg-card/20 backdrop-blur-sm">
+        <div className="max-w-6xl mx-auto text-center space-y-6">
+          <div className="flex justify-center space-x-6">
+            {socialLinks.map((social) => (
+              <a
+                key={social.name}
+                href={social.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`p-3 rounded-full border border-primary/20 ${social.color} transition-all duration-300 hover:scale-110 hover:animate-glow`}
+              >
+                <social.icon className="w-6 h-6" />
+              </a>
+            ))}
+          </div>
+          <p className="text-muted-foreground">
+            © 2025 Alfred_UArc7. Todos los derechos reservados.
+          </p>
+        </div>
       </footer>
     </div>
   );
