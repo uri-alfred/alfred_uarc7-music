@@ -7,10 +7,6 @@ import { Badge } from "@/components/ui/badge";
 import {
   Play,
   Pause,
-  Instagram,
-  Twitter,
-  Youtube,
-  SproutIcon as Spotify,
   Music,
   Headphones,
   Zap,
@@ -18,6 +14,10 @@ import {
   ArrowUp,
 } from "lucide-react";
 import Image from "next/image";
+import { FaInstagram, FaSpotify, FaXTwitter, FaYoutube } from "react-icons/fa6";
+import { getYouTubeVideosWithStats } from "@/service/Youtube";
+import SingleYt from "@/components/interface/SingleYt";
+import Loader from "@/components/commons/loader";
 
 export default function ArtistPage() {
   const [currentTrack, setCurrentTrack] = useState<number | null>(null);
@@ -25,6 +25,10 @@ export default function ArtistPage() {
 
   const genresRef = useRef<HTMLDivElement | null>(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
+
+  const [singlesYt, setSinglesYt] = useState<SingleYt[]>([]);
+  const [popularesYt, setPopularesYt] = useState<SingleYt[]>([]);
+  const [loadingSingles, setLoadingSingles] = useState(true);
 
   useEffect(() => {
     setIsVisible(true);
@@ -40,6 +44,19 @@ export default function ArtistPage() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    async function fetchSingles() {
+      const youtubeSingles = await getYouTubeVideosWithStats(4);
+      const youtubePopulares = await getYouTubeVideosWithStats(8, "popular");
+
+      setSinglesYt(youtubeSingles);
+      setPopularesYt(youtubePopulares);
+      setLoadingSingles(false);
+    }
+
+    fetchSingles();
+  }, []);
+
   const genres = [
     { name: "Rock", icon: Music, color: "bg-red-500" },
     { name: "Cyberpunk", icon: Zap, color: "bg-purple-500" },
@@ -47,39 +64,31 @@ export default function ArtistPage() {
     { name: "Orquestal", icon: Headphones, color: "bg-green-500" },
   ];
 
-  const singles = [
-    {
-      title: "Neon Dreams",
-      plays: "2.1M",
-      cover: "/cyberpunk-neon-album-cover.png",
-    },
-    {
-      title: "Digital Symphony",
-      plays: "1.8M",
-      cover: "/electronic-orchestra-album-cover.png",
-    },
-    {
-      title: "Chrome Hearts",
-      plays: "1.5M",
-      cover: "/rock-cyberpunk-album-cover.png",
-    },
-    {
-      title: "Binary Soul",
-      plays: "1.2M",
-      cover: "/electronic-music-album-cover.png",
-    },
-  ];
-
   const socialLinks = [
-    { name: "Spotify", icon: Spotify, url: "#", color: "hover:text-green-400" },
+    {
+      name: "Spotify",
+      icon: FaSpotify,
+      url: "https://open.spotify.com/artist/1hH79jUGYvxZTNleuBghkI",
+      color: "hover:text-green-400",
+    },
     {
       name: "Instagram",
-      icon: Instagram,
-      url: "#",
+      icon: FaInstagram,
+      url: "https://www.instagram.com/alfred_uarc7/",
       color: "hover:text-pink-400",
     },
-    { name: "Twitter", icon: Twitter, url: "#", color: "hover:text-blue-400" },
-    { name: "YouTube", icon: Youtube, url: "#", color: "hover:text-red-400" },
+    {
+      name: "X (Twitter)",
+      icon: FaXTwitter,
+      url: "https://x.com/Alfred_UArc7",
+      color: "hover:text-blue-400",
+    },
+    {
+      name: "YouTube",
+      icon: FaYoutube,
+      url: "https://www.youtube.com/channel/UCsTSwYGiEWsnghOj3vppeCA",
+      color: "hover:text-red-400",
+    },
   ];
 
   return (
@@ -150,60 +159,131 @@ export default function ArtistPage() {
       </section>
 
       {/* Singles Section */}
-      <section className="py-20 px-4 bg-gradient-to-b from-transparent to-purple-900/10">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-12 text-balance">
-            Sencillos Más Populares
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {singles.map((single, index) => (
-              <Card
-                key={single.title}
-                className={`group cursor-pointer transition-all duration-300 hover:scale-105 border-primary/20 bg-card/50 backdrop-blur-sm ${
-                  isVisible ? "animate-slide-up" : "opacity-30"
-                }`}
-                style={{ animationDelay: `${index * 0.1 + 0.5}s` }}
-              >
-                <CardContent className="p-0">
-                  <div className="relative overflow-hidden rounded-t-lg">
-                    <Image
-                      src={single.cover || "/placeholder.svg"}
-                      alt={single.title}
-                      className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
-                      width={400}
-                      height={192}
-                    />
-                    <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                      <Button
-                        size="lg"
-                        className="rounded-full animate-glow"
-                        onClick={() =>
-                          setCurrentTrack(currentTrack === index ? null : index)
-                        }
-                      >
-                        {currentTrack === index ? (
-                          <Pause className="w-6 h-6" />
-                        ) : (
-                          <Play className="w-6 h-6" />
-                        )}
-                      </Button>
+      {loadingSingles ? (
+        <Loader textLoading="Cargando música..." />
+      ) : (
+        <section className="py-20 px-4 bg-gradient-to-b from-transparent to-purple-900/10">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-4xl font-bold text-center mb-12 text-balance">
+              Sencillos Más Populares
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {popularesYt.map((single, index) => (
+                <Card
+                  key={single.title}
+                  className={`group cursor-pointer transition-all duration-300 hover:scale-105 border-primary/20 bg-card/50 backdrop-blur-sm ${
+                    isVisible ? "animate-slide-up" : "opacity-30"
+                  }`}
+                  style={{ animationDelay: `${index * 0.1 + 0.5}s` }}
+                >
+                  <CardContent className="p-0">
+                    <div className="relative overflow-hidden rounded-t-lg">
+                      <Image
+                        src={single.cover || "/placeholder.svg"}
+                        alt={single.title}
+                        className="w-auto h-auto object-cover transition-transform duration-300 group-hover:scale-110"
+                        width={400}
+                        height={192}
+                        unoptimized
+                      />
+                      <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <Button
+                          size="lg"
+                          className="rounded-full animate-glow"
+                          onClick={() =>
+                            setCurrentTrack(
+                              currentTrack === index ? null : index
+                            )
+                          }
+                        >
+                          {currentTrack === index ? (
+                            <Pause className="w-6 h-6" />
+                          ) : (
+                            <Play className="w-6 h-6" />
+                          )}
+                        </Button>
+                      </div>
                     </div>
-                  </div>
-                  <div className="p-4 space-y-2">
-                    <h3 className="font-semibold text-lg">{single.title}</h3>
-                    <Badge
-                      variant="secondary"
-                      className="bg-primary/20 text-primary"
-                    >
-                      {single.plays} reproducciones
-                    </Badge>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+                    <div className="p-4 space-y-2">
+                      <h3 className="font-semibold text-lg">{single.title}</h3>
+                      <Badge
+                        variant="secondary"
+                        className="bg-primary/20 text-primary"
+                      >
+                        {single.plays} reproducciones
+                      </Badge>
+                      <div className="text-sm text-muted-foreground">
+                        Publicado el{" "}
+                        {new Date(single.publishedAt).toLocaleDateString()}
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+
+          <div className="max-w-6xl mx-auto mt-20">
+            <h2 className="text-4xl font-bold text-center mb-12 text-balance">
+              Ultimos lanzamientos
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {singlesYt.map((single, index) => (
+                <Card
+                  key={single.title}
+                  className={`group cursor-pointer transition-all duration-300 hover:scale-105 border-primary/20 bg-card/50 backdrop-blur-sm ${
+                    isVisible ? "animate-slide-up" : "opacity-30"
+                  }`}
+                  style={{ animationDelay: `${index * 0.1 + 0.5}s` }}
+                >
+                  <CardContent className="p-0">
+                    <div className="relative overflow-hidden rounded-t-lg">
+                      <Image
+                        src={single.cover || "/placeholder.svg"}
+                        alt={single.title}
+                        className="w-auto h-auto object-cover transition-transform duration-300 group-hover:scale-110"
+                        width={400}
+                        height={192}
+                        unoptimized
+                      />
+                      <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <Button
+                          size="lg"
+                          className="rounded-full animate-glow"
+                          onClick={() =>
+                            setCurrentTrack(
+                              currentTrack === index ? null : index
+                            )
+                          }
+                        >
+                          {currentTrack === index ? (
+                            <Pause className="w-6 h-6" />
+                          ) : (
+                            <Play className="w-6 h-6" />
+                          )}
+                        </Button>
+                      </div>
+                    </div>
+                    <div className="p-4 space-y-2">
+                      <h3 className="font-semibold text-lg">{single.title}</h3>
+                      <Badge
+                        variant="secondary"
+                        className="bg-primary/20 text-primary"
+                      >
+                        {single.plays} reproducciones
+                      </Badge>
+                      <div className="text-sm text-muted-foreground">
+                        Publicado el{" "}
+                        {new Date(single.publishedAt).toLocaleDateString()}
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* About Section */}
       <section className="py-20 px-4">
@@ -211,20 +291,32 @@ export default function ArtistPage() {
           <h2 className="text-4xl font-bold mb-8 text-balance">Mi música</h2>
           <div className="space-y-6 text-lg leading-relaxed text-muted-foreground">
             <p>
-              Fusión de géneros, combino la potencia del rock con la estética
-              futurista del cyberpunk, la innovación de la música electrónica y
-              la grandeza de las composiciones orquestales.
+              Mi música es un reflejo de mis propias emociones, ideas y
+              experiencias, transformadas en sonido a través de la inteligencia
+              artificial. Aunque la tecnología es la herramienta, el alma detrás
+              de cada canción es cien por ciento humana. Cada composición nace
+              de una necesidad personal de explorar universos épicos, atmósferas
+              oscuras y paisajes emocionales que las palabras a veces no logran
+              capturar.
             </p>
             <p>
-              Mi música trasciende las barreras tradicionales, creando paisajes
-              sonoros que transportan al oyente a mundos donde la tecnología y
-              la emoción humana se encuentran en perfecta armonía.
+              Me enfoco en crear piezas que fusionan lo épico con lo
+              introspectivo, donde las melodias orquestales se encuentran con
+              sonidos electrónicos y ambientales. Mis géneros principales giran
+              en torno a la música épica—para narrar batallas internas y
+              triunfos personales—, la música oscura—con atmospheres cargadas de
+              misterio y melancolía—, y la música emocional—que evoca soledad,
+              resiliencia y sueños rotos—. Me inspiro en la dualidad entre la
+              luz y la oscuridad, en historias de superación, y en mundos de
+              fantasía y ciencia ficción.
             </p>
             <p>
-              Cada composición es un viaje a través de diferentes dimensiones
-              musicales, donde los sintetizadores dialogan con violines, las
-              guitarras eléctricas se entrelazan con beats electrónicos, y cada
-              nota cuenta una historia del futuro.
+              Cada canción es un viaje sensorial diseñado para transportarte a
+              otros lugares, ya sea para reflexionar, inspirarte o simplemente
+              sentirte acompañado en tus silencios. No busco seguir tendencias;
+              busco crear soundscapes únicos que resonen en quienes, como yo,
+              creen que la música es un refugio para las emociones más
+              profundas.
             </p>
           </div>
         </div>
@@ -384,15 +476,16 @@ export default function ArtistPage() {
         </div>
       </section>
 
+      {/* Botón de Volver Arriba */}
       {showScrollTop && (
-  <button
-    onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-    className="fixed bottom-8 right-8 z-50 from-purple-900/10 via-pink-500 to-blue-500 text-white rounded-full shadow-lg w-14 h-14 flex items-center justify-center border-4 border-white/20 hover:scale-110 transition-transform duration-300 animate-glow focus:outline-none"
-    aria-label="Volver arriba"
-  >
-    <ArrowUp className="w-7 h-7" />
-  </button>
-)}
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          className="fixed bottom-8 right-8 z-50 from-purple-900/10 via-pink-500 to-blue-500 text-white rounded-full shadow-lg w-14 h-14 flex items-center justify-center border-4 border-white/20 hover:scale-110 transition-transform duration-300 animate-glow focus:outline-none"
+          aria-label="Volver arriba"
+        >
+          <ArrowUp className="w-7 h-7" />
+        </button>
+      )}
 
       {/* Footer */}
       <footer className="py-12 px-4 border-t border-border/50 bg-card/20 backdrop-blur-sm">
