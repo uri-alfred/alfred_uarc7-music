@@ -205,7 +205,7 @@ export default function ArtistPage() {
                       </div>
                     </div>
                     <div className="p-4 space-y-2">
-                      <h3 className="font-semibold text-lg">{single.title}</h3>
+                      <h3 className="font-semibold text-lg line-clamp-2 break-words">{single.title}</h3>
                       <Badge
                         variant="secondary"
                         className="bg-primary/20 text-primary"
@@ -221,10 +221,8 @@ export default function ArtistPage() {
                 </Card>
               ))}
             </div>
-          </div>
 
-          <div className="max-w-6xl mx-auto mt-20">
-            <h2 className="text-4xl font-bold text-center mb-12 text-balance">
+            <h2 className="text-4xl font-bold text-center mb-12 text-balance mt-20">
               Ultimos lanzamientos
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -265,7 +263,7 @@ export default function ArtistPage() {
                       </div>
                     </div>
                     <div className="p-4 space-y-2">
-                      <h3 className="font-semibold text-lg">{single.title}</h3>
+                      <h3 className="font-semibold text-lg line-clamp-2 break-words">{single.title}</h3>
                       <Badge
                         variant="secondary"
                         className="bg-primary/20 text-primary"
@@ -282,6 +280,7 @@ export default function ArtistPage() {
               ))}
             </div>
           </div>
+
         </section>
       )}
 

@@ -35,7 +35,7 @@ export async function getYouTubeVideosWithStats(maxResults: number = 10, tipoVid
       videoId: item.id,
       views: parseInt(item.statistics.viewCount) || 0,
       likes: parseInt(item.statistics.likeCount) || 0,
-      duration: item.contentDetails.duration,
+      duration: formatDuration(item.contentDetails.duration),
       publishedAt: item.snippet.publishedAt,
       cover:
         item.snippet.thumbnails.high?.url ||
@@ -55,4 +55,16 @@ function formatPlays(views: number): string {
     return `${(views / 1000).toFixed(1)}K`;
   }
   return views.toString();
+}
+
+function formatDuration(duration: string): string {
+  // Convierte ISO 8601 duration a formato legible
+  const match = duration.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
+  if (!match) return duration;
+  
+  const hours = (match[1] || '').replace('H', '');
+  const minutes = (match[2] || '').replace('M', '');
+  const seconds = (match[3] || '').replace('S', '');
+  
+  return `${hours ? hours + ':' : ''}${minutes.padStart(2, '0')}:${seconds.padStart(2, '0')}`;
 }
