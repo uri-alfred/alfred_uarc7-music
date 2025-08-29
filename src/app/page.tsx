@@ -3,13 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import {
-  Music,
-  Headphones,
-  Zap,
-  Volume2,
-  ArrowUp,
-} from "lucide-react";
+import { Music, Headphones, Zap, Volume2, ArrowUp } from "lucide-react";
 import { FaInstagram, FaSpotify, FaXTwitter, FaYoutube } from "react-icons/fa6";
 import { getYouTubeVideosWithStats } from "@/service/Youtube";
 import SingleYt from "@/components/interface/SingleYt";
@@ -91,7 +85,7 @@ export default function ArtistPage() {
     <div className="min-h-screen bg-background text-foreground overflow-hidden">
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center bg-gradient-to-br from-background via-background to-purple-900/20">
-        <div className='absolute inset-0 bg-[url(/alfred_uarc7-music/portada.png)] bg-cover bg-center opacity-40'></div>
+        <div className="absolute inset-0 bg-[url(/alfred_uarc7-music/portada.png)] bg-cover bg-center opacity-40"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
 
         <div
@@ -249,7 +243,25 @@ export default function ArtistPage() {
                   <span>
                     Soy miembro pago de Suno AI, lo que me otorga derechos
                     comerciales sobre la música generada, de acuerdo con los
-                    términos y condiciones de la plataforma. <a href="https://suno.ai/terms" target="_blank" rel="noopener noreferrer">Ver términos</a> y <a href="https://suno-ai.notion.site/FAQs-b72601b96de44e5cacd2cd6baa985448#f0f1441180484d6094206e84e334ba36" target="_blank" rel="noopener noreferrer">para otras preguntas</a>.
+                    términos y condiciones de la plataforma.{" "}
+                    <a
+                      href="https://suno.ai/terms"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="color-link-purple"
+                    >
+                      Ver términos
+                    </a>{" "}
+                    y{" "}
+                    <a
+                      href="https://suno-ai.notion.site/FAQs-b72601b96de44e5cacd2cd6baa985448#f0f1441180484d6094206e84e334ba36"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="color-link-purple"
+                    >
+                      para otras preguntas
+                    </a>
+                    .
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
