@@ -248,7 +248,7 @@ export default function ArtistPage() {
                       href="https://suno.ai/terms"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="color-link-purple"
+                      className="text-purple-500 hover:text-purple-400 underline underline-offset-2 transition-colors duration-200 font-semibold"
                     >
                       Ver términos
                     </a>{" "}
@@ -257,7 +257,7 @@ export default function ArtistPage() {
                       href="https://suno-ai.notion.site/FAQs-b72601b96de44e5cacd2cd6baa985448#f0f1441180484d6094206e84e334ba36"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="color-link-purple"
+                      className="text-purple-500 hover:text-purple-400 underline underline-offset-2 transition-colors duration-200 font-semibold"
                     >
                       para otras preguntas
                     </a>
