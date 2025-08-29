@@ -87,7 +87,8 @@ export default function ArtistPage() {
     },
   ];
 
-  const pathPortada = `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/portada.png`;
+  const pathBase = process.env.NEXT_PUBLIC_BASE_PATH || "";
+  const pathPortada = pathBase.concat(`/portada.png`);
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-hidden">
