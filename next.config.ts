@@ -1,10 +1,11 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  /* config options here */
+/**
+ * @type {import('next').NextConfig}
+ */
+const nextConfig = {
   output: "export",
-  basePath: "/alfred_uarc7-music",
-  assetPrefix: "/alfred_uarc7-music",
+  images: {
+    unoptimized: true,
+  },
 };
 
 export default nextConfig;
