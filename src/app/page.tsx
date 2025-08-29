@@ -26,6 +26,8 @@ export default function ArtistPage() {
   const [popularesYt, setPopularesYt] = useState<SingleYt[]>([]);
   const [loadingSingles, setLoadingSingles] = useState(true);
 
+  const pathImage = `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/portada.png`
+
   useEffect(() => {
     setIsVisible(true);
   }, []);
@@ -91,7 +93,7 @@ export default function ArtistPage() {
     <div className="min-h-screen bg-background text-foreground overflow-hidden">
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center bg-gradient-to-br from-background via-background to-purple-900/20">
-        <div className={`absolute inset-0 bg-[url('${process.env.NEXT_PUBLIC_BASE_PATH || ""}/portada.png')] bg-cover bg-center opacity-40`}></div>
+        <div className={`absolute inset-0 bg-[url('${pathImage}')] bg-cover bg-center opacity-40`}></div>
         <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
 
         <div
