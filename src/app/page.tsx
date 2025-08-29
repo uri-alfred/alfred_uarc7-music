@@ -249,7 +249,7 @@ export default function ArtistPage() {
                   <span>
                     Soy miembro pago de Suno AI, lo que me otorga derechos
                     comerciales sobre la música generada, de acuerdo con los
-                    términos y condiciones de la plataforma.
+                    términos y condiciones de la plataforma. <a href="https://suno.ai/terms" target="_blank" rel="noopener noreferrer">Ver términos</a> y <a href="https://suno-ai.notion.site/FAQs-b72601b96de44e5cacd2cd6baa985448#f0f1441180484d6094206e84e334ba36" target="_blank" rel="noopener noreferrer">para otras preguntas</a>.
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
