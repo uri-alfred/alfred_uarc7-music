@@ -2,7 +2,7 @@
 
 export async function getYouTubeVideosWithStats(maxResults: number = 10, tipoVideo: string = 'default') {
   try {
-    const res = await fetch('/youtube-cache.json');
+    const res = await fetch('/alfred_uarc7-music/youtube-cache.json');
     const data = await res.json();
     let videos: any[] = [];
     if (tipoVideo === 'popular') {
