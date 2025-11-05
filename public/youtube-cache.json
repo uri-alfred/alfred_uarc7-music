@@ -1,10 +1,28 @@
 {
   "latest": [
     {
+      "title": "Alfred_UArc7 - Hablando con el Ayer",
+      "videoId": "pm3dg9yj0vY",
+      "views": 4,
+      "likes": 2,
+      "duration": "PT3M18S",
+      "publishedAt": "2025-10-30T23:01:16Z",
+      "cover": "https://i.ytimg.com/vi/pm3dg9yj0vY/hqdefault.jpg"
+    },
+    {
+      "title": "Alfred_UArc7 - Error 404: Alma No Encontrada",
+      "videoId": "a4TxGhzXCgg",
+      "views": 10,
+      "likes": 2,
+      "duration": "PT2M47S",
+      "publishedAt": "2025-10-25T16:00:01Z",
+      "cover": "https://i.ytimg.com/vi/a4TxGhzXCgg/hqdefault.jpg"
+    },
+    {
       "title": "Alfred_UArc7 - El Malo Que Hace el Bien",
       "videoId": "QSNFlvbgG5A",
-      "views": 2,
-      "likes": 2,
+      "views": 29,
+      "likes": 4,
       "duration": "PT3M7S",
       "publishedAt": "2025-10-02T15:00:46Z",
       "cover": "https://i.ytimg.com/vi/QSNFlvbgG5A/hqdefault.jpg"
@@ -12,90 +30,72 @@
     {
       "title": "Alfred_UArc7 - Rise of Neon Dreams",
       "videoId": "KRzBYOWs_oY",
-      "views": 22,
-      "likes": 3,
+      "views": 45,
+      "likes": 4,
       "duration": "PT4M1S",
       "publishedAt": "2025-09-09T21:30:04Z",
       "cover": "https://i.ytimg.com/vi/KRzBYOWs_oY/hqdefault.jpg"
-    },
-    {
-      "title": "Alfred_UArc7 - No es solo mía",
-      "videoId": "mujz8nJG_Y0",
-      "views": 31,
-      "likes": 2,
-      "duration": "PT3M30S",
-      "publishedAt": "2025-09-02T23:01:01Z",
-      "cover": "https://i.ytimg.com/vi/mujz8nJG_Y0/hqdefault.jpg"
-    },
-    {
-      "title": "Alfred_UArc7 - 屈しない影 (Sombra inquebrantable)",
-      "videoId": "Q8Eiex3_Hus",
-      "views": 33,
-      "likes": 3,
-      "duration": "PT4M",
-      "publishedAt": "2025-08-29T01:30:18Z",
-      "cover": "https://i.ytimg.com/vi/Q8Eiex3_Hus/hqdefault.jpg"
     }
   ],
   "popular": [
     {
       "title": "Alfred_UArc7 - Ascenso de Titán",
       "videoId": "3grIBhYZzL0",
-      "views": 230,
-      "likes": 9,
+      "views": 240,
+      "likes": 10,
       "duration": "PT2M10S",
       "publishedAt": "2025-03-30T00:30:03Z",
       "cover": "https://i.ytimg.com/vi/3grIBhYZzL0/hqdefault.jpg"
     },
     {
+      "title": "ESTE MIX TE HACKEARÁ EL CEREBRO 😵🎶 - Cyberpunk | Dark Electro | Dark Techno | Industrial (1 Hora)",
+      "videoId": "iO1l-bL9Jrw",
+      "views": 235,
+      "likes": 10,
+      "duration": "PT43M45S",
+      "publishedAt": "2025-07-19T17:01:01Z",
+      "cover": "https://i.ytimg.com/vi/iO1l-bL9Jrw/hqdefault.jpg"
+    },
+    {
+      "title": "Alfred_UArc7 - Ángel Caído",
+      "videoId": "_w2aXLCw9_0",
+      "views": 228,
+      "likes": 6,
+      "duration": "PT3M1S",
+      "publishedAt": "2025-03-31T19:15:00Z",
+      "cover": "https://i.ytimg.com/vi/_w2aXLCw9_0/hqdefault.jpg"
+    },
+    {
       "title": "Alfred_UArc7 - Neon Shadows",
       "videoId": "ubuQj0Xp_R8",
-      "views": 216,
+      "views": 221,
       "likes": 8,
       "duration": "PT1M59S",
       "publishedAt": "2025-03-26T02:30:39Z",
       "cover": "https://i.ytimg.com/vi/ubuQj0Xp_R8/hqdefault.jpg"
     },
     {
-      "title": "Alfred_UArc7 - Ángel Caído",
-      "videoId": "_w2aXLCw9_0",
-      "views": 222,
-      "likes": 5,
-      "duration": "PT3M1S",
-      "publishedAt": "2025-03-31T19:15:00Z",
-      "cover": "https://i.ytimg.com/vi/_w2aXLCw9_0/hqdefault.jpg"
-    },
-    {
-      "title": "ESTE MIX TE HACKEARÁ EL CEREBRO 😵🎶 - Cyberpunk | Dark Electro | Dark Techno | Industrial (1 Hora)",
-      "videoId": "iO1l-bL9Jrw",
-      "views": 214,
-      "likes": 8,
-      "duration": "PT43M45S",
-      "publishedAt": "2025-07-19T17:01:01Z",
-      "cover": "https://i.ytimg.com/vi/iO1l-bL9Jrw/hqdefault.jpg"
-    },
-    {
-      "title": "Alfred_UArc7 - Digital Rage",
-      "videoId": "gIcPkwpRxYg",
-      "views": 149,
-      "likes": 7,
-      "duration": "PT2M54S",
-      "publishedAt": "2025-04-20T16:01:06Z",
-      "cover": "https://i.ytimg.com/vi/gIcPkwpRxYg/hqdefault.jpg"
-    },
-    {
       "title": "Alfred_UArc7 - Entre ángeles y demonios",
       "videoId": "uxR9Ed7ncUQ",
-      "views": 140,
-      "likes": 11,
+      "views": 205,
+      "likes": 15,
       "duration": "PT3M27S",
       "publishedAt": "2025-08-03T20:00:27Z",
       "cover": "https://i.ytimg.com/vi/uxR9Ed7ncUQ/hqdefault.jpg"
     },
     {
+      "title": "Alfred_UArc7 - Digital Rage",
+      "videoId": "gIcPkwpRxYg",
+      "views": 161,
+      "likes": 8,
+      "duration": "PT2M54S",
+      "publishedAt": "2025-04-20T16:01:06Z",
+      "cover": "https://i.ytimg.com/vi/gIcPkwpRxYg/hqdefault.jpg"
+    },
+    {
       "title": "Alfred_UArc7 - Luz de Medianoche",
       "videoId": "fXQpdbbGL-0",
-      "views": 128,
+      "views": 134,
       "likes": 3,
       "duration": "PT2M26S",
       "publishedAt": "2025-05-24T20:30:05Z",
@@ -104,8 +104,8 @@
     {
       "title": "Alfred_UArc7 - Protegiendo Al Amor",
       "videoId": "vjhf_njU4Cg",
-      "views": 77,
-      "likes": 4,
+      "views": 81,
+      "likes": 5,
       "duration": "PT3M7S",
       "publishedAt": "2025-05-16T22:45:07Z",
       "cover": "https://i.ytimg.com/vi/vjhf_njU4Cg/hqdefault.jpg"
